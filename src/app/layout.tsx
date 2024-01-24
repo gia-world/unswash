@@ -20,6 +20,7 @@ export default function RootLayout({
       <body className={mst.className}>
         <Header />
         <main>{children}</main>
+        <div id="portal" />
       </body>
     </html>
   );
