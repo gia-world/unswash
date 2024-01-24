@@ -1,18 +1,21 @@
-import { ChangeEvent, FormEvent } from "react";
+import { FormEvent, useState } from "react";
 
 type Props = {
-  keyword: string;
-  onChange: (e: ChangeEvent<HTMLInputElement>) => void;
-  onSubmit: (e: FormEvent<Element>) => void;
+  onSubmit: (e: FormEvent, text: string) => void;
 };
 
-export default function SearchForm({ keyword, onChange, onSubmit }: Props) {
-  const searchEnabled = keyword ? keyword.length > 2 : false;
+export default function SearchForm({ onSubmit }: Props) {
+  const [text, setText] = useState("");
+  const searchEnabled = text ? text.length > 2 : false;
 
   return (
     <section>
-      <form onSubmit={onSubmit}>
-        <input type="text" value={keyword} onChange={onChange} />
+      <form onSubmit={(e) => onSubmit(e, text)}>
+        <input
+          type="text"
+          value={text}
+          onChange={(e) => setText(e.target.value)}
+        />
         <button
           className={`font-bold ${
             searchEnabled ? "text-sky-500" : "text-pink-500"

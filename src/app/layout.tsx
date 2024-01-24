@@ -1,4 +1,5 @@
 import Header from "@/components/Header";
+import QueryContext from "@/context/QueryContext";
 import type { Metadata } from "next";
 import { Montserrat } from "next/font/google";
 import "./globals.css";
@@ -16,12 +17,14 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
-      <body className={mst.className}>
-        <Header />
-        <main>{children}</main>
-        <div id="portal" />
-      </body>
-    </html>
+    <QueryContext>
+      <html lang="en">
+        <body className={mst.className}>
+          <Header />
+          <main>{children}</main>
+          <div id="portal" />
+        </body>
+      </html>
+    </QueryContext>
   );
 }

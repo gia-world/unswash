@@ -1,51 +1,53 @@
-import { Photo } from "@/model/photo";
-import { unsplash } from "@/service/unsplash";
+import { getPhoto } from "@/service/unsplash";
 import Image from "next/image";
-import { useEffect, useState } from "react";
-import { ApiResponse } from "unsplash-js/dist/helpers/response";
-import { Full } from "unsplash-js/dist/methods/photos/types";
+import { useQuery } from "react-query";
+
 type Props = {
   photoId: string;
 };
 
 export default function PhotoDetail({ photoId }: Props) {
-  const [photoData, setPhotoData] = useState<ApiResponse<Full> | null>(null);
-  const [photo, setPhoto] = useState<Photo>();
+  const {
+    data: photoData,
+    error,
+    isError,
+    isLoading,
+    isSuccess,
+  } = useQuery(["photo", photoId], () => getPhoto(photoId));
 
-  const getPhoto = (id: string) => {
-    unsplash.photos.get({ photoId: id }).then((res) => {
-      setPhotoData(res);
-      if (res.type === "success") {
-        setPhoto(res.response);
-      }
-    });
-  };
+  //* 캐시 무효화 처리하기
 
-  useEffect(() => {
-    getPhoto(photoId);
-  }, [photoId]);
+  if (isLoading) {
+    return <div>loading...</div>;
+  }
+  if (isError) {
+    console.error("Error fetching photo data:", error);
+    return <div>Error fetching photo data</div>;
+  }
 
-  if (!photo) return;
-  return (
-    <div>
+  if (isSuccess && photoData.response) {
+    const { user, urls, alt_description } = photoData.response;
+    return (
       <div>
-        <p>
-          {photo.user.first_name} {photo.user.last_name}
-        </p>
-        <div>북마크</div>
+        <div>
+          <p>
+            {user.first_name} {user.last_name}
+          </p>
+          <div>북마크</div>
+        </div>
+        <div className="relative aspect-square">
+          <Image
+            src={urls.regular}
+            alt={alt_description || ""}
+            fill
+            sizes="150px"
+          />
+        </div>
+        <dl>
+          <dt>이미지 크기</dt>
+          <dd></dd>
+        </dl>
       </div>
-      <div className="relative aspect-square">
-        <Image
-          src={photo.urls.regular}
-          alt={photo.alt_description || ""}
-          fill
-          sizes="150px"
-        />
-      </div>
-      <dl>
-        <dt>이미지 크기</dt>
-        <dd></dd>
-      </dl>
-    </div>
-  );
+    );
+  }
 }
