@@ -2,12 +2,19 @@ import Link from "next/link";
 
 export default function Header() {
   return (
-    <header>
+    <header className="flex items-center justify-between px-8 h-14">
       <h1>
-        <Link href="/">로고</Link>
+        <Link href="/" className="flex gap-1 items-baseline">
+          <p className="rounded-full bg-blue-600 text-white font-bold h-6 w-6 flex items-center justify-center text-xl italic">
+            W
+          </p>
+          <span className="font-bold italic">willog</span>
+        </Link>
       </h1>
       <nav>
-        <Link href="/bookmark">북마크</Link>
+        <Link href="/bookmark">
+          <p className="border border-neutral-400 rounded-md px-1">북마크</p>
+        </Link>
       </nav>
     </header>
   );

@@ -18,25 +18,17 @@ export default function PhotoList({
   photos,
 }: Props) {
   if (isLoading) {
-    <section>loading...</section>;
+    return <p className="text-center">Loading...</p>;
   }
   if (isError) {
-    return (
-      <section>
-        <div>error</div>
-      </section>
-    );
+    return <p className="text-center">An error occured.</p>;
   }
   if (isSuccess && photos?.response) {
     if (photos.response.total == 0) {
-      return (
-        <section>
-          <p>검색 결과가 없습니다.</p>
-        </section>
-      );
+      return <p className="text-center">검색 결과가 없습니다.</p>;
     } else {
       return (
-        <section>
+        <div>
           <ul className="grid grid-cols-3 gap-4 px-8 py-4">
             {photos.response.results.map((photo) => (
               <li key={photo.id}>
@@ -44,7 +36,7 @@ export default function PhotoList({
               </li>
             ))}
           </ul>
-        </section>
+        </div>
       );
     }
   }

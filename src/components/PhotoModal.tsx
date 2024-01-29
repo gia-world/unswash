@@ -25,7 +25,9 @@ export default function PhotoModal({ onClose, children }: Props) {
       >
         <CloseIcon />
       </button>
-      <div className="h-3/5 w-4/5 max-w-7xl bg-white">{children}</div>
+      <div className="h-4/5 w-4/5 max-w-7xl bg-white overflow-y-scroll">
+        {children}
+      </div>
     </section>
   );
 }
