@@ -1,3 +1,4 @@
+import { Photo } from "@/model/photo";
 import { getPhoto } from "@/service/unsplash";
 import { parseDate } from "@/util/date";
 import Image from "next/image";
@@ -14,21 +15,33 @@ export default function PhotoDetail({ photoId }: Props) {
     isError,
     isLoading,
     isSuccess,
-  } = useQuery(["photo", photoId], () => getPhoto(photoId));
-
-  //* 캐시 무효화 처리하기
+  } = useQuery<Photo>(["photo", photoId], () => getPhoto(photoId));
 
   if (isLoading) {
-    return <div>loading...</div>;
+    return (
+      <div className="h-full flex justify-center items-center">loading...</div>
+    );
   }
   if (isError) {
     console.error("Error fetching photo data:", error);
-    return <div>Error fetching photo data</div>;
+    return (
+      <div className="h-full flex justify-center items-center">
+        Error fetching photo data
+      </div>
+    );
   }
 
-  if (isSuccess && photoData.response) {
-    const { user, urls, alt_description, width, height, updated_at } =
-      photoData.response;
+  if (isSuccess && photoData) {
+    const {
+      user,
+      urls,
+      alt_description,
+      width,
+      height,
+      updated_at,
+      downloads,
+      tags_preview,
+    } = photoData;
     return (
       <div className="flex flex-col h-full">
         <div className="flex justify-between p-4 ml-8">
@@ -57,7 +70,21 @@ export default function PhotoDetail({ photoId }: Props) {
             <dt className="text-neutral-600 font-bold">업로드</dt>
             <dd>{parseDate(updated_at)}</dd>
           </dl>
+          <dl className="text-sm">
+            <dt className="text-neutral-600 font-bold">다운로드 수</dt>
+            <dd>{downloads}</dd>
+          </dl>
         </div>
+        <ul className="flex gap-3 px-4 pb-4">
+          {tags_preview.map((tag) => (
+            <li
+              key={tag.title}
+              className="rounded-sm bg-neutral-200 text-neutral-600 px-2"
+            >
+              {tag.title}
+            </li>
+          ))}
+        </ul>
       </div>
     );
   }

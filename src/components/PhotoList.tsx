@@ -1,5 +1,4 @@
-import { ApiResponse } from "unsplash-js/dist/helpers/response";
-import { Photos } from "unsplash-js/dist/methods/search/types/response";
+import { Photos } from "@/model/photo";
 import PhotoItem from "./PhotoItem";
 
 type Props = {
@@ -7,7 +6,7 @@ type Props = {
   isError: boolean;
   isSuccess: boolean;
   error: unknown;
-  photos: ApiResponse<Photos> | undefined;
+  photos: Photos | undefined;
 };
 
 export default function PhotoList({
@@ -23,14 +22,14 @@ export default function PhotoList({
   if (isError) {
     return <p className="text-center">An error occured.</p>;
   }
-  if (isSuccess && photos?.response) {
-    if (photos.response.total == 0) {
+  if (isSuccess && photos) {
+    if (photos.total == 0) {
       return <p className="text-center">검색 결과가 없습니다.</p>;
     } else {
       return (
         <div>
           <ul className="grid grid-cols-3 gap-4">
-            {photos.response.results.map((photo) => (
+            {photos.results.map((photo) => (
               <li key={photo.id}>
                 <PhotoItem photo={photo} />
               </li>

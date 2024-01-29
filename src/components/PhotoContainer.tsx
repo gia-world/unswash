@@ -62,9 +62,9 @@ export default function PhotoContainer() {
             photos={photosData}
           />
         )}
-        {photosData?.response && (
+        {photosData && (
           <Pagination
-            totalPages={photosData.response.total_pages}
+            totalPages={photosData.total_pages}
             currentPage={currentPage}
             onChange={handlePage}
           />
