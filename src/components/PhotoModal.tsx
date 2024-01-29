@@ -19,13 +19,10 @@ export default function PhotoModal({ onClose, children }: Props) {
         }
       }}
     >
-      <button
-        onClick={() => onClose()}
-        className="fixed right-0 top-0 p-8 text-white"
-      >
-        <CloseIcon />
-      </button>
-      <div className="h-4/5 w-4/5 max-w-7xl bg-white overflow-y-scroll">
+      <div className="h-3/5 w-4/5 max-w-7xl bg-white overflow-y-scroll relative">
+        <button onClick={() => onClose()} className="absolute left-0 top-0 p-4">
+          <CloseIcon />
+        </button>
         {children}
       </div>
     </section>

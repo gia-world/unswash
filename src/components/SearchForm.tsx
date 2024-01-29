@@ -6,7 +6,7 @@ type Props = {
 
 export default function SearchForm({ onSubmit }: Props) {
   const [text, setText] = useState("");
-  const searchEnabled = text ? text.length >= 2 : false;
+  const searchEnabled = text ? text.length > 1 : false;
 
   return (
     <>

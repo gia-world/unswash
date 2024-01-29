@@ -1,4 +1,5 @@
 import { getPhoto } from "@/service/unsplash";
+import { parseDate } from "@/util/date";
 import Image from "next/image";
 import { useQuery } from "react-query";
 
@@ -29,14 +30,14 @@ export default function PhotoDetail({ photoId }: Props) {
     const { user, urls, alt_description, width, height, updated_at } =
       photoData.response;
     return (
-      <>
-        <div className="flex justify-between p-4">
+      <div className="flex flex-col h-full">
+        <div className="flex justify-between p-4 ml-8">
           <p className="font-bold">
             {user.first_name} {user.last_name}
           </p>
           <div>북마크</div>
         </div>
-        <div className="h-3/5">
+        <div className="flex-1">
           <div className="relative h-full">
             <Image
               src={urls.regular}
@@ -47,22 +48,17 @@ export default function PhotoDetail({ photoId }: Props) {
             />
           </div>
         </div>
-        <div className="flex gap-5 p-4">
+        <div className="flex gap-6 p-4">
           <dl className="text-sm">
             <dt className="text-neutral-600 font-bold">이미지 크기</dt>
             <dd>{`${width}px * ${height}px`}</dd>
           </dl>
           <dl className="text-sm">
             <dt className="text-neutral-600 font-bold">업로드</dt>
-            <dd></dd>
-          </dl>
-          <dl className="text-sm">
-            <dt className="text-neutral-600 font-bold">다운로드</dt>
-            <dd>{`${width}px * ${height}px`}</dd>
+            <dd>{parseDate(updated_at)}</dd>
           </dl>
         </div>
-        <ul className="flex gap-2"></ul>
-      </>
+      </div>
     );
   }
 }
