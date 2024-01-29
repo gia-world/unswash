@@ -1,12 +1,12 @@
-import { Photo } from "@/model/photo";
 import Image from "next/image";
 import { useState } from "react";
+import { Basic } from "unsplash-js/dist/methods/photos/types";
 import PhotoDetail from "./PhotoDetail";
 import PhotoModal from "./PhotoModal";
 import ModalPortal from "./ui/ModalPortal";
 
 type Props = {
-  photo: Photo;
+  photo: Basic;
 };
 
 export default function PhotoItem({ photo }: Props) {

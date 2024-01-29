@@ -29,7 +29,7 @@ export default function PhotoList({
     } else {
       return (
         <div>
-          <ul className="grid grid-cols-3 gap-4 px-8 py-4">
+          <ul className="grid grid-cols-3 gap-4">
             {photos.response.results.map((photo) => (
               <li key={photo.id}>
                 <PhotoItem photo={photo} />

@@ -2,24 +2,40 @@
 
 import SearchForm from "@/components/SearchForm";
 import { getPhotos } from "@/service/unsplash";
-import { FormEvent, useState } from "react";
+import { FormEvent, useEffect, useState } from "react";
 import { useQuery } from "react-query";
+import Pagination from "./Pagination";
 import PhotoList from "./PhotoList";
 
 export default function PhotoContainer() {
   const [keyword, setKeyword] = useState("");
+  const [currentPage, setcurrentPage] = useState(1);
+
   const {
     data: photosData,
     error,
     isError,
     isLoading,
     isSuccess,
-  } = useQuery(["photos", keyword], () => getPhotos(keyword));
+    refetch,
+  } = useQuery(["photos", keyword], () => getPhotos(keyword, currentPage), {
+    enabled: !!keyword, // 쿼리 실행 조건
+  });
 
   const handleSubmit = (e: FormEvent, text: string) => {
     e.preventDefault();
     setKeyword(text);
+    setcurrentPage(1); //키워드가 바뀔때 페이지네이션도 초기화
   };
+
+  const handlePage = (page: number) => {
+    setcurrentPage(page);
+  };
+
+  useEffect(() => {
+    // currentPage 가 변경될 때마다 refetch
+    refetch();
+  }, [currentPage, refetch]);
 
   return (
     <>
@@ -36,7 +52,7 @@ export default function PhotoContainer() {
           <SearchForm onSubmit={handleSubmit} />
         </div>
       </section>
-      <section className="bg-slate-200 p-12 flex-1">
+      <section className="p-12 flex-1">
         {keyword && (
           <PhotoList
             isLoading={isLoading}
@@ -44,6 +60,13 @@ export default function PhotoContainer() {
             isSuccess={isSuccess}
             error={error}
             photos={photosData}
+          />
+        )}
+        {photosData?.response && (
+          <Pagination
+            totalPages={photosData.response.total_pages}
+            currentPage={currentPage}
+            onChange={handlePage}
           />
         )}
       </section>

@@ -11,11 +11,15 @@ export const getPhoto = async (photoId: string) => {
   return res;
 };
 
-export const getPhotos = async (keyword: string, page?: number) => {
+export const getPhotos = async (
+  keyword: string,
+  page?: number,
+  perPage?: number
+) => {
   const res = await unsplash.search.getPhotos({
     query: keyword,
     page: page ?? 1,
-    perPage: 10,
+    perPage: perPage ?? 9,
   });
   return res;
 };
