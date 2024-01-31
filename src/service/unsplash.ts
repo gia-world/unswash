@@ -41,13 +41,3 @@ export const getPhotos = async (keyword: string, page = 1, perPage = 9) => {
   const data = await response.json();
   return data;
 };
-
-export const likePhoto = async (photoId: string) => {
-  // const response = await fetch(`${apiUrl}/photos/${photoId}/like`, {
-  //   method: "POST",
-  //   headers: {
-  //     Authorization: `Client-ID ${unsplashAccessKey}`,
-  //   },
-  // });
-  // return response;
-};

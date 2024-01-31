@@ -1,9 +1,5 @@
-import { AiOutlineHeart } from "react-icons/ai";
+import { GoHeart } from "react-icons/go";
 
-type Props = {
-  className?: string;
-};
-
-export default function HeartIcon({ className }: Props) {
-  return <AiOutlineHeart className={className || "h-7 w-7"} />;
+export default function HeartIcon() {
+  return <GoHeart className="h-6 w-6 fill-white" />;
 }

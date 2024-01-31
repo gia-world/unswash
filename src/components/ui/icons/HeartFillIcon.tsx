@@ -1,5 +1,5 @@
-import { AiFillHeart } from "react-icons/ai";
+import { GoHeartFill } from "react-icons/go";
 
 export default function HeartFillIcon() {
-  return <AiFillHeart className="h-7 w-7 fill-red-500" />;
+  return <GoHeartFill className="h-6 w-6 fill-red-500" />;
 }

@@ -1,9 +1,9 @@
 import { Photo } from "@/model/photo";
-import { useLikePhotoMutation } from "@/service/query";
 import { getPhoto } from "@/service/unsplash";
 import { parseDate } from "@/util/date";
 import Image from "next/image";
 import { useQuery } from "react-query";
+import ToggleLikeButton from "./ToggleLikeButton";
 
 type Props = {
   photoId: string;
@@ -17,12 +17,6 @@ export default function PhotoDetail({ photoId }: Props) {
     isLoading,
     isSuccess,
   } = useQuery<Photo>(["photo", photoId], () => getPhoto(photoId));
-
-  const likePhotoMutation = useLikePhotoMutation(photoId);
-
-  const handleLike = () => {
-    likePhotoMutation.mutate();
-  };
 
   if (isLoading) {
     return (
@@ -55,7 +49,7 @@ export default function PhotoDetail({ photoId }: Props) {
           <p className="font-bold">
             {user.first_name} {user.last_name}
           </p>
-          <button onClick={() => handleLike()}>북마크</button>
+          <ToggleLikeButton photoId={photoId} />
         </div>
         <div className="flex-1">
           <div className="relative h-full">

@@ -3,6 +3,7 @@ import Image from "next/image";
 import { useState } from "react";
 import PhotoDetail from "./PhotoDetail";
 import PhotoModal from "./PhotoModal";
+import ToggleLikeButton from "./ToggleLikeButton";
 import ModalPortal from "./ui/ModalPortal";
 
 type Props = {
@@ -23,6 +24,7 @@ export default function PhotoItem({ photo }: Props) {
         onClick={() => setOpenModal(true)}
         className="object-cover"
       />
+      <ToggleLikeButton photoId={id} className="absolute right-2 bottom-2" />
 
       {openModal && (
         <ModalPortal>
