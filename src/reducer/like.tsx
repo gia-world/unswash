@@ -34,15 +34,3 @@ export const toggleLikeAction = (photoId: string): LikePhotoAction => ({
   type: TOGGLE_LIKE,
   payload: photoId,
 });
-
-// const useLikePhotoReducer = () => {
-//   const [state, dispatch] = useReducer(reducer, initialState);
-
-//   const toggleLike = (photoId: string) => {
-//     dispatch({ type: TOGGLE_LIKE, payload: photoId });
-//   };
-
-//   return { ...state, toggleLike };
-// };
-
-// export default useLikePhotoReducer;

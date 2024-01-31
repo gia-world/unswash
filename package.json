@@ -16,8 +16,7 @@
     "react-icons": "^5.0.1",
     "react-query": "^3.39.3",
     "react-spinners": "^0.13.8",
-    "timeago.js": "^4.0.2",
-    "unsplash-js": "^7.0.19"
+    "timeago.js": "^4.0.2"
   },
   "devDependencies": {
     "@types/node": "^20",
