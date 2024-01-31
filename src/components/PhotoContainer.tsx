@@ -1,6 +1,7 @@
 "use client";
 
 import SearchForm from "@/components/SearchForm";
+import { Photos } from "@/model/photo";
 import { getPhotos } from "@/service/unsplash";
 import { FormEvent, useEffect, useState } from "react";
 import { useQuery } from "react-query";
@@ -11,16 +12,26 @@ export default function PhotoContainer() {
   const [keyword, setKeyword] = useState("");
   const [currentPage, setcurrentPage] = useState(1);
 
-  const {
-    data: photosData,
-    error,
-    isError,
-    isLoading,
-    isSuccess,
-    refetch,
-  } = useQuery(["photos", keyword], () => getPhotos(keyword, currentPage), {
-    enabled: !!keyword, // 쿼리 실행 조건
-  });
+  // const {
+  //   data: photosData,
+  //   error,
+  //   isError,
+  //   isLoading,
+  //   isSuccess,
+  //   refetch,
+  // } = useQuery(["photos", keyword], () => getPhotos(keyword, currentPage), {
+  //   enabled: !!keyword, // 쿼리 실행 조건
+  // });
+
+  const queryData = useQuery<Photos>(
+    ["photos", keyword],
+    () => getPhotos(keyword, currentPage),
+    {
+      enabled: !!keyword, // 쿼리 실행 조건
+    }
+  );
+
+  const photosData = queryData.data;
 
   const handleSubmit = (e: FormEvent, text: string) => {
     e.preventDefault();
@@ -34,8 +45,8 @@ export default function PhotoContainer() {
 
   useEffect(() => {
     // currentPage 가 변경될 때마다 refetch
-    refetch();
-  }, [currentPage, refetch]);
+    queryData.refetch();
+  }, [currentPage, queryData]);
 
   return (
     <>
@@ -53,15 +64,7 @@ export default function PhotoContainer() {
         </div>
       </section>
       <section className="p-12 flex-1">
-        {keyword && (
-          <PhotoList
-            isLoading={isLoading}
-            isError={isError}
-            isSuccess={isSuccess}
-            error={error}
-            photos={photosData}
-          />
-        )}
+        {keyword && <PhotoList queryData={queryData} />}
         {photosData && (
           <Pagination
             totalPages={photosData.total_pages}
