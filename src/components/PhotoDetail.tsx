@@ -39,7 +39,7 @@ export default function PhotoDetail({ photoId }: Props) {
   };
 
   return (
-    <QueryTemplete {...queryData}>
+    <QueryTemplete queryResult={queryData}>
       {queryData.data ? (
         <div className="flex flex-col h-full">
           <div className="flex justify-between p-4 ml-8">
