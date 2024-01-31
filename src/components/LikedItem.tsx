@@ -14,7 +14,7 @@ export default function LikedItem({ photoId }: Props) {
   );
 
   return (
-    <QueryTemplete {...queryData}>
+    <QueryTemplete queryResult={queryData}>
       {queryData.data && <PhotoItem photo={queryData.data} />}
     </QueryTemplete>
   );
