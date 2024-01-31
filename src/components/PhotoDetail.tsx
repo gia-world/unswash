@@ -17,16 +17,7 @@ export default function PhotoDetail({ photoId }: Props) {
     getPhoto(photoId)
   );
 
-  const {
-    user,
-    urls,
-    alt_description,
-    width,
-    height,
-    updated_at,
-    downloads,
-    tags_preview,
-  } = queryData.data!;
+  const photoData = queryData.data;
 
   const { state, dispatch } = useLikePhotoContext();
   const isLiked = state.some(
@@ -40,19 +31,19 @@ export default function PhotoDetail({ photoId }: Props) {
 
   return (
     <QueryTemplete queryResult={queryData}>
-      {queryData.data ? (
+      {photoData ? (
         <div className="flex flex-col h-full">
           <div className="flex justify-between p-4 ml-8">
             <p className="font-bold">
-              {user.first_name} {user.last_name}
+              {photoData.user.first_name} {photoData.user.last_name}
             </p>
             <ToggleLikeButton isLiked={isLiked} onClick={handleLike} />
           </div>
           <div className="flex-1">
             <div className="relative h-full">
               <Image
-                src={urls.regular}
-                alt={alt_description || ""}
+                src={photoData.urls.regular}
+                alt={photoData.alt_description || ""}
                 fill
                 sizes="150px"
                 className="object-contain"
@@ -62,19 +53,19 @@ export default function PhotoDetail({ photoId }: Props) {
           <div className="flex gap-6 p-4">
             <dl className="text-sm">
               <dt className="text-neutral-600 font-bold">이미지 크기</dt>
-              <dd>{`${width}px * ${height}px`}</dd>
+              <dd>{`${photoData.width}px * ${photoData.height}px`}</dd>
             </dl>
             <dl className="text-sm">
               <dt className="text-neutral-600 font-bold">업로드</dt>
-              <dd>{parseDate(updated_at)}</dd>
+              <dd>{parseDate(photoData.updated_at)}</dd>
             </dl>
             <dl className="text-sm">
               <dt className="text-neutral-600 font-bold">다운로드 수</dt>
-              <dd>{downloads}</dd>
+              <dd>{photoData.downloads}</dd>
             </dl>
           </div>
           <ul className="flex gap-3 px-4 pb-4">
-            {tags_preview.map((tag) => (
+            {photoData.tags_preview.map((tag) => (
               <li
                 key={tag.title}
                 className="rounded-sm bg-neutral-200 text-neutral-600 px-2"
