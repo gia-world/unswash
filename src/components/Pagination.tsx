@@ -24,6 +24,13 @@ export default function Pagination({
   // Math.min(..., totalPages): 계산한 값이 전체 페이지 수보다 크면 전체 페이지 수로 설정
   // startPage + pageCount - 1: 시작 페이지에 페이지 수를 더하고 1을 빼서 페이지 범위의 끝 페이지를 계산
 
+  const prevEnabled = startPage > 1 && totalPages > pageCount;
+  const nextEnabled = endPage < totalPages;
+  const viewablePages = pages.slice(
+    startPage - 1,
+    Math.min(endPage, totalPages)
+  );
+
   if (totalPages === 1) {
     return;
   }
@@ -39,12 +46,12 @@ export default function Pagination({
           </button>
         </li>
       ))} */}
-      {startPage > 1 && totalPages > pageCount && (
+      {prevEnabled && (
         <li>
           <button onClick={() => onChange(startPage - 1)}>이전</button>
         </li>
       )}
-      {pages.slice(startPage - 1, Math.min(endPage, totalPages)).map((page) => (
+      {viewablePages.map((page) => (
         <li key={page}>
           <button
             onClick={() => onChange(page)}
@@ -55,7 +62,7 @@ export default function Pagination({
         </li>
       ))}
 
-      {endPage < totalPages && (
+      {nextEnabled && (
         <li>
           <button onClick={() => onChange(endPage + 1)}>다음</button>
         </li>

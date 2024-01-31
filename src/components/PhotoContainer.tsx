@@ -42,7 +42,7 @@ export default function PhotoContainer() {
       <section className="bg-slate-400 py-12">
         <div className="w-[80%] mx-auto">
           <div className="text-white mb-6">
-            <h2 className="text-3xl font-bold mb-3">Will Photo</h2>
+            <h2 className="text-3xl font-bold mb-3">Unswash</h2>
             <p className="leading-7">
               인터넷의 시각 자료 출처입니다.
               <br />

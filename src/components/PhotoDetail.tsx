@@ -1,4 +1,5 @@
 import { Photo } from "@/model/photo";
+import { useLikePhotoMutation } from "@/service/query";
 import { getPhoto } from "@/service/unsplash";
 import { parseDate } from "@/util/date";
 import Image from "next/image";
@@ -16,6 +17,12 @@ export default function PhotoDetail({ photoId }: Props) {
     isLoading,
     isSuccess,
   } = useQuery<Photo>(["photo", photoId], () => getPhoto(photoId));
+
+  const likePhotoMutation = useLikePhotoMutation(photoId);
+
+  const handleLike = () => {
+    likePhotoMutation.mutate();
+  };
 
   if (isLoading) {
     return (
@@ -48,7 +55,7 @@ export default function PhotoDetail({ photoId }: Props) {
           <p className="font-bold">
             {user.first_name} {user.last_name}
           </p>
-          <div>북마크</div>
+          <button onClick={() => handleLike()}>북마크</button>
         </div>
         <div className="flex-1">
           <div className="relative h-full">

@@ -5,10 +5,10 @@ export default function Header() {
     <header className="flex items-center justify-between px-8 h-14">
       <h1>
         <Link href="/" className="flex gap-1 items-baseline">
-          <p className="rounded-full bg-blue-600 text-white font-bold h-6 w-6 flex items-center justify-center text-xl italic">
+          <p className="rounded-full bg-blue-600 text-white font-extrabold h-7 w-7 flex items-center justify-center text-2xl italic">
             W
           </p>
-          <span className="font-bold italic">willog</span>
+          <span className="font-bold italic text-xl">unswash</span>
         </Link>
       </h1>
       <nav>

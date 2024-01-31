@@ -21,6 +21,7 @@ export default function PhotoItem({ photo }: Props) {
         fill
         sizes="150px"
         onClick={() => setOpenModal(true)}
+        className="object-cover"
       />
 
       {openModal && (
