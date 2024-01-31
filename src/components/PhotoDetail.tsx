@@ -1,10 +1,12 @@
+import { useLikePhotoContext } from "@/context/LikePhotoContext";
 import { Photo } from "@/model/photo";
+import { toggleLikeAction } from "@/reducer/like";
 import { getPhoto } from "@/service/unsplash";
 import { parseDate } from "@/util/date";
 import Image from "next/image";
 import { useQuery } from "react-query";
 import QueryTemplete from "./QueryTemplete";
-import ToggleLikeButton from "./ToggleLikeButton";
+import ToggleLikeButton from "./ui/ToggleLikeButton";
 
 type Props = {
   photoId: string;
@@ -26,6 +28,16 @@ export default function PhotoDetail({ photoId }: Props) {
     tags_preview,
   } = queryData.data!;
 
+  const { state, dispatch } = useLikePhotoContext();
+  const isLiked = state.some(
+    (item) => item.photoId === photoId && item.isLiked === true
+  );
+  // photoId와 일치하는 요소가 state에 존재하는지 확인
+
+  const handleLike = () => {
+    dispatch(toggleLikeAction(photoId));
+  };
+
   return (
     <QueryTemplete {...queryData}>
       {queryData.data ? (
@@ -34,7 +46,7 @@ export default function PhotoDetail({ photoId }: Props) {
             <p className="font-bold">
               {user.first_name} {user.last_name}
             </p>
-            <ToggleLikeButton photoId={photoId} />
+            <ToggleLikeButton isLiked={isLiked} onClick={handleLike} />
           </div>
           <div className="flex-1">
             <div className="relative h-full">
