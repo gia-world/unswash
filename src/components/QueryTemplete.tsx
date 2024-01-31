@@ -1,34 +1,33 @@
 import { Photo, Photos } from "@/model/photo";
 import { ReactNode } from "react";
 import { UseQueryResult } from "react-query";
-import LoadingSpinner from "./ui/LoadingSpinner";
 
-type Props = {
-  queryResult: UseQueryResult<Photo | Photos, unknown>;
+type Props = UseQueryResult<Photo | Photos, unknown> & {
+  data: Photo | Photos | undefined;
   children: ReactNode;
 };
 
-export default function QueryTemplate({ queryResult, children }: Props) {
-  const { isLoading, isError, isSuccess, error, data } = queryResult;
-
+export default function QueryTemplete({
+  isLoading,
+  isError,
+  isSuccess,
+  error,
+  data,
+  children,
+}: Props) {
   if (isLoading) {
     return (
-      <div className="h-full w-full flex justify-center items-center">
-        <LoadingSpinner />
-      </div>
+      <div className="h-full flex justify-center items-center">loading...</div>
     );
   }
-
   if (isError) {
-    console.error("Error fetching data:", error);
-    // 에러 메시지 향상을 위한 변경
+    console.error("Error fetching photo data:", error);
     return (
       <div className="h-full flex justify-center items-center">
-        <span>데이터를 가져올 수 없습니다.</span>
+        Error fetching photo data
       </div>
     );
   }
-
   if (isSuccess && data) {
     return <>{children}</>;
   }
