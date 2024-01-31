@@ -10,7 +10,7 @@ type Props = {
 export default function PhotoList({ queryData }: Props) {
   const photos = queryData.data;
   return (
-    <QueryTemplete {...queryData}>
+    <QueryTemplete queryResult={queryData}>
       {photos &&
         (photos.total === 0 ? (
           <p className="text-center">검색 결과가 없습니다.</p>
