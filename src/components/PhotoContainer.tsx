@@ -7,21 +7,11 @@ import { FormEvent, useEffect, useState } from "react";
 import { useQuery } from "react-query";
 import Pagination from "./Pagination";
 import PhotoList from "./PhotoList";
+import LayoutContainer from "./ui/LayoutContainer";
 
 export default function PhotoContainer() {
   const [keyword, setKeyword] = useState("");
   const [currentPage, setcurrentPage] = useState(1);
-
-  // const {
-  //   data: photosData,
-  //   error,
-  //   isError,
-  //   isLoading,
-  //   isSuccess,
-  //   refetch,
-  // } = useQuery(["photos", keyword], () => getPhotos(keyword, currentPage), {
-  //   enabled: !!keyword, // 쿼리 실행 조건
-  // });
 
   const queryData = useQuery<Photos>(
     ["photos", keyword],
@@ -51,7 +41,7 @@ export default function PhotoContainer() {
   return (
     <>
       <section className="bg-slate-400 py-12">
-        <div className="w-[80%] mx-auto">
+        <LayoutContainer>
           <div className="text-white mb-6">
             <h2 className="text-3xl font-bold mb-3">Unswash</h2>
             <p className="leading-7">
@@ -61,17 +51,19 @@ export default function PhotoContainer() {
             </p>
           </div>
           <SearchForm onSubmit={handleSubmit} />
-        </div>
+        </LayoutContainer>
       </section>
       <section className="p-12 flex-1">
-        {keyword && <PhotoList queryData={queryData} />}
-        {photosData && (
-          <Pagination
-            totalPages={photosData.total_pages}
-            currentPage={currentPage}
-            onChange={handlePage}
-          />
-        )}
+        <LayoutContainer>
+          {keyword && <PhotoList queryData={queryData} />}
+          {photosData && (
+            <Pagination
+              totalPages={photosData.total_pages}
+              currentPage={currentPage}
+              onChange={handlePage}
+            />
+          )}
+        </LayoutContainer>
       </section>
     </>
   );

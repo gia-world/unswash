@@ -12,17 +12,17 @@ export default function SearchForm({ onSubmit }: Props) {
     <>
       <form
         onSubmit={(e) => onSubmit(e, text)}
-        className="flex justify-between gap-4"
+        className="flex justify-between"
       >
         <input
           type="text"
           value={text}
           onChange={(e) => setText(e.target.value)}
-          className="flex-1 py-1 px-2 rounded-sm"
+          className="flex-1 py-2 px-3 rounded-s-sm outline-none text-lg"
         />
         <button
-          className={`rounded-sm px-3 font-bold text-white ${
-            searchEnabled ? "bg-blue-500" : "bg-neutral-500"
+          className={`rounded-e-sm px-3 font-bold bg-white text-lg ${
+            searchEnabled ? "text-blue-500" : "text-neutral-500"
           }`}
           type="submit"
           disabled={!searchEnabled}
