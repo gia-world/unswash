@@ -17,10 +17,9 @@ export default function PhotoItem({ photo }: Props) {
   const [openModal, setOpenModal] = useState(false);
 
   const { state, dispatch } = useLikePhotoContext();
-  const isLiked = state.some(
-    (item) => item.photoId === id && item.isLiked === true
-  );
+
   // photoId와 일치하는 요소가 state에 존재하는지 확인
+  const isLiked = !!state.find((item) => item === id);
 
   const handleLike = () => {
     dispatch(toggleLikeAction(id));

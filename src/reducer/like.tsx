@@ -10,16 +10,12 @@ export const likePhotoReducer = (
   switch (action.type) {
     case TOGGLE_LIKE:
       const photoId = action.payload;
-      const existingPhoto = prevState.find((item) => item.photoId === photoId);
+      const existingPhoto = prevState.find((item) => item === photoId);
 
       if (existingPhoto) {
-        // 이미 존재하는 경우, 해당 요소의 isLiked를 토글
-        return prevState.map((item) =>
-          item.photoId === photoId ? { ...item, isLiked: !item.isLiked } : item
-        );
+        return prevState.filter((item) => item !== photoId);
       } else {
-        // 존재하지 않는 경우, 새로운 요소 추가
-        return [...prevState, { photoId, isLiked: true }];
+        return [...prevState, photoId];
       }
     default:
       return prevState;
