@@ -1,36 +1,30 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# **Unswash Image Search**
 
-## Getting Started
+Unswash Image Search은 Unsplash API를 활용하여 이미지 검색을 제공하는 React 기반의 웹 애플리케이션입니다.
 
-First, run the development server:
+### **주요 기능 및 구현 내용**
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+1. **이미지 검색 및 페이지네이션**
+   - Unsplash API를 활용하여 사용자가 입력한 키워드에 관련된 이미지를 검색합니다.
+   - 검색 결과를 페이지네이션하여 표시하며, 한 화면에 여러 이미지를 효과적으로 관리합니다.
+2. **상세 이미지 정보 표시**
+   - 각 이미지에 대한 상세 정보를 표시하고, 이미지의 크기, 업로드 날짜 등을 제공합니다.
+3. **전역 상태 관리 및 북마크 기능**
+   - **`useContext`**와 **`useReducer`**를 활용하여 전역 상태로 북마크 여부를 관리합니다.
+   - 사용자가 이미지를 북마크하면 해당 이미지의 북마크 상태를 표시합니다.
+4. **React Query를 통한 데이터 요청 및 상태 관리**
+   - **`react-query`**를 사용하여 Unsplash API로부터 데이터를 효과적으로 요청하고 관리합니다.
+   - 데이터 로딩, 에러, 성공 상태를 처리하여 사용자 경험을 개선합니다.
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+### **작업 기간**
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+2024년 1월 22일~2024년 2월 1일
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+### **사용 스택 및 라이브러리**
 
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+- React.js
+- Typescript
+- Tailwind CSS
+- Unsplash API
+- React Query
+- Vercel(배포)
